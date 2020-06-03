@@ -6,7 +6,7 @@
 
 %global proton_licensedir %{_licensedir}/proton
 %{!?_licensedir:
-%global license %doc}
+%global license %doc
 %global proton_licensedir %{_datadir}/proton}
 
 Name:                qpid-proton
