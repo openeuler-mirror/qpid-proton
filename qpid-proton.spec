@@ -10,12 +10,12 @@
 %global proton_licensedir %{_datadir}/proton}
 
 Name:                qpid-proton
-Version:             0.31.0
-Release:             2
+Version:             0.33.0
+Release:             1
 Summary:             A high performance and lightweight library for messaging applications
 License:             ASL 2.0
 URL:                 http://qpid.apache.org/proton/
-Source0:             https://github.com/apache/qpid-proton/archive/0.31.0.tar.gz
+Source0:             https://github.com/apache/qpid-proton/archive/%{version}.tar.gz
 Patch0000:           proton.patch
 Patch0001:           for-non-constant-SIGSTKSZ.patch
 
@@ -114,8 +114,6 @@ pushd buildpython3
 (pushd python/dist; %py3_install)
 
 find %{buildroot}%{_datadir}/proton/examples/python -name "*.py" -exec sed -i 's/!\/usr\/bin\/env python/!\/usr\/bin\/python3/' {} \;
-sed -i 's/!\/usr\/bin\/python/!\/usr\/bin\/python3/' %{buildroot}%{_datadir}/proton/examples/c/testme
-sed -i 's/!\/usr\/bin\/python/!\/usr\/bin\/python3/' %{buildroot}%{_datadir}/proton/examples/cpp/testme
 echo '#!/usr/bin/python3' > %{buildroot}%{_datadir}/proton/examples/python/proton_server.py.original
 cat %{buildroot}%{_datadir}/proton/examples/python/proton_server.py >> %{buildroot}%{_datadir}/proton/examples/python/proton_server.py.original
 mv %{buildroot}%{_datadir}/proton/examples/python/proton_server.py.original %{buildroot}%{_datadir}/proton/examples/python/proton_server.py
@@ -177,6 +175,9 @@ done
 %doc %{_datadir}/proton/tests
 
 %changelog
+* Tue Jul 13 2021 huangtianhua <huangtianhua@huawei.com> - 0.33.0-1
+- Update to 0.33.0
+
 * Tue Aug 10 2021 wangyue <wangyue92@huawei.com> - 0.31.0-2
 - Patch for non-constant SIGSTKSZ
 
