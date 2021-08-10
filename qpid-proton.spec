@@ -11,12 +11,13 @@
 
 Name:                qpid-proton
 Version:             0.31.0
-Release:             1
+Release:             2
 Summary:             A high performance and lightweight library for messaging applications
 License:             ASL 2.0
 URL:                 http://qpid.apache.org/proton/
 Source0:             https://github.com/apache/qpid-proton/archive/0.31.0.tar.gz
 Patch0000:           proton.patch
+Patch0001:           for-non-constant-SIGSTKSZ.patch
 
 BuildRequires:       gcc gcc-c++ cmake swig pkgconfig doxygen libuuid-devel openssl-devel
 BuildRequires:       python3-devel python3-sphinx glibc-headers cyrus-sasl-devel jsoncpp-devel
@@ -176,6 +177,9 @@ done
 %doc %{_datadir}/proton/tests
 
 %changelog
+* Tue Aug 10 2021 wangyue <wangyue92@huawei.com> - 0.31.0-2
+- Patch for non-constant SIGSTKSZ
+
 * Tue Jun 2 2020 leiju <leiju4@huawei.com> - 0.31.0-1
 - Update to 0.31.0
 
