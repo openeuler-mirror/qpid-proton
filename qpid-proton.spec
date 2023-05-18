@@ -11,7 +11,7 @@
 
 Name:                qpid-proton
 Version:             0.38.0
-Release:             1
+Release:             2
 Summary:             A high performance and lightweight library for messaging applications
 License:             ASL 2.0
 URL:                 http://qpid.apache.org/proton/
@@ -94,6 +94,13 @@ This package contains some tests for qpid-proton.
 %autosetup -n %{name}-%{version} -p1
 
 %build
+%if "%toolchain" == "clang"
+	export CFLAGS="$CFLAGS -Wno-error=strict-prototypes -Wno-error=unused-but-set-variable"
+	export CXXFLAGS="$CXXFLAGS -Wno-error=strict-prototypes -Wno-error=unused-but-set-variable"
+	%ifarch riscv64
+		sed -i '/LTO_Clang/d' %{_builddir}/%{name}-%{version}/CMakeLists.txt
+	%endif
+%endif
 rm -rf buildpython3 && mkdir buildpython3
 pushd buildpython3
 python_includes=$(ls -d /usr/include/python3*)
@@ -174,6 +181,9 @@ done
 %doc %{_datadir}/proton/tests
 
 %changelog
+* Thu May 18 2023 yoo <sunyuechi@iscas.ac.cn> - 0.38.0-2
+- fix clang build error
+
 * Tue Feb 07 2023 xu_ping <xuping33@h-partners.com> - 0.38.0-1
 - Update to 0.38.0
 
